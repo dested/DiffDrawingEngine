@@ -7,7 +7,6 @@ DD.Layer = function(width,height) {
 	this.state={};
 
 	this.init();
-	this.initState();
 };
 
 DD.Layer.prototype.init=function(){
@@ -91,6 +90,8 @@ DD.Window.prototype.addImage=function(image){
 };
 
 DD.Window.prototype.addLayer=function(layer){
+
+	layer.initState();
 	layer.visibleCanvas.width=this.width;
 	layer.visibleCanvas.height=this.height;
 	this.element.appendChild(layer.visibleCanvas);
@@ -191,7 +192,7 @@ function removePieces(canvasContext2d, freshContext, pieces){
 
 		canvasContext2d.clearRect(removedBounds.x,removedBounds.y,removedBounds.width,removedBounds.height);
 		for (var i = 0; i < forceRedraw.length; i++) {
-			drawPiece(forceRedraw[i]);
+			drawPiece(canvasContext2d,forceRedraw[i]);
 		}
 	}
 }
@@ -204,6 +205,7 @@ function addPieces(canvasContext2d, freshContext, pieces){
 }
 
 function drawPiece(canvasContext2d,piece){
+	console.log('drawing '+piece.type)
 	switch(piece.type){
 		case 'image':
 		{
