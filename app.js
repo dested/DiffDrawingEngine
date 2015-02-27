@@ -8,23 +8,23 @@ var ballLayer=new DD.Layer(500,500);
 ballLayer.initState=function(){
 	this.state.balls=[];
 	this.state.updateIndex=0;
-	for (var i = 0; i < 100 ;i++) {
-		this.state.balls.push({highlight:false,x:(i % 10)*25+50,y:((i/50)|0)*25+50});
+	for (var i = 0; i < 11 ;i++) {
+		this.state.balls.push({highlight:false,x:(i % 10)*25+50,y:((i/10)|0)*25+50});
 	};
 };
 
 ballLayer.render=function(context){
 
-for (var i = 0; i < this.state.balls.length; i++) {
-	var ball=this.state.balls[i]
+	for (var i = 0; i < this.state.balls.length; i++) {
+		var ball=this.state.balls[i]
 
-	if(ball.highlight){
-		context.drawImage(imgHighlightBall,ball.x-19,ball.y-20);
-	}
-	else{
-		context.drawImage(imgBall,ball.x-14,ball.y-9);
-	}
-};
+		if(ball.highlight){
+			context.drawImage(imgHighlightBall,ball.x-19,ball.y-20);
+		}
+		else{
+			context.drawImage(imgBall,ball.x-14,ball.y-9);
+		}
+	};
 
 };
 
@@ -44,12 +44,9 @@ sonicLayer.render=function(context){
 
 setInterval(function(){
 	sonicLayer.state.running=!sonicLayer.state.running;
-
-
-var ball=ballLayer.state.balls[ballLayer.state.updateIndex++%ballLayer.state.balls.length];
-
-			ball.highlight=!ball.highlight;
-},1000);
+	var ball=ballLayer.state.balls[ballLayer.state.updateIndex++%ballLayer.state.balls.length];
+	ball.highlight=!ball.highlight;
+},300);
 
 var ddWindow=new DD.Window(1024,768,document.getElementById("main"));
 ddWindow.addImage(imgHighlightBall);

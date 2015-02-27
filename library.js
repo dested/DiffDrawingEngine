@@ -23,13 +23,10 @@ DD.Layer.prototype.initState=function(){};
 DD.Layer.prototype.shouldRender=function(){return true;};
 DD.Layer.prototype.draw=function(ddWindow){
 	var windowBounds=ddWindow.bounds;
-
 	this.lastWindowBounds=windowBounds;
-	this.visibleContext.clearRect(0,0,windowBounds.width,windowBounds.height);
-	this.visibleContext.drawImage(this.actualCanvas, 
-		windowBounds.x,windowBounds.y,windowBounds.width,windowBounds.height,
-		0,0,windowBounds.width,windowBounds.height);
 
+	var imgData=this.actualContext.getImageData(windowBounds.x,windowBounds.y,windowBounds.width,windowBounds.height);
+	this.visibleContext.putImageData(imgData,0,0);
 };
 DD.Image=function(imgUrl){
 	var img=new Image();
